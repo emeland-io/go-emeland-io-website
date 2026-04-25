@@ -8,7 +8,7 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-    - uses: ./.gihub/actions/setup-git-sync
+    - uses: ./.github/actions/setup-git-sync
       with:
         mirror-ssh-key: ${{ secrets.MIRROR_REPO_SSH_KEY }}
     - uses: actions/checkout@v6
