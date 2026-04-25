@@ -10,8 +10,8 @@ jobs:
     steps:
      - uses: actions/checkout@v6
      - uses: ./.github/actions/setup-git-sync
-        with:
-          mirror-ssh-key: ${{ secrets.MIRROR_REPO_SSH_KEY }}
-      - run: |
-          git remote add public git@github-mirror:go-emeland-io2/go-libraries.git
-          git push public main
+       with:
+         mirror-ssh-key: ${{ secrets.MIRROR_REPO_SSH_KEY }}
+     - run: |
+         git remote add public git@github-mirror:go-emeland-io2/go-libraries.git
+         git push public main
