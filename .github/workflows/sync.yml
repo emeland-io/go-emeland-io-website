@@ -9,6 +9,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
      - uses: actions/checkout@v6
+     - name: Setup SSH Configuration
+       shell: bash
+       run: |
+         mkdir -p ~/.ssh
+         chmod 700 ~/.ssh
+
+         # Write the SSH keys
+         echo "${{ inputs.mirror-ssh-key }}" > ~/.ssh/mirror_key
+         chmod 600 ~/.ssh/*_key
+
+         # Create SSH config with host aliases
+         cat > ~/.ssh/config << 'EOF'
+         Host github-mirror
+           HostName github.com
+           User git
+           IdentityFile ~/.ssh/mirror_key
+           IdentitiesOnly yes
+         
+         EOF
+
+         chmod 600 ~/.ssh/config
+         ssh-keyscan github.com >> ~/.ssh/known_hosts
+
      - uses: ./.github/actions/setup-git-sync
        with:
          mirror-ssh-key: ${{ secrets.MIRROR_REPO_SSH_KEY }}
