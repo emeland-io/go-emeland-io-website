@@ -8,7 +8,10 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
+    - uses: ./.gihub/actions/setup-git-sync
+      with:
+        mirror-ssh-key: ${{ secrets.MIRROR_REPO_SSH_KEY }}
     - uses: actions/checkout@v6
     - run: |
-        git remote add public git@github.com:go-emeland-io2/go-libraries.git
+        git remote add public git@github-mirror:go-emeland-io2/go-libraries.git
         git push public main
