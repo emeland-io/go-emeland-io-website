@@ -40,6 +40,7 @@ jobs:
          SYNC_BRANCHES: main
        run: |
          git remote add public git@github-mirror:go-emeland-io2/go-libraries.git
+         git fetch public
 
          for branch in ${SYNC_BRANCHES}; do
            echo "Syncing $branch..."
