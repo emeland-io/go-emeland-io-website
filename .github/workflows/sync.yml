@@ -44,11 +44,11 @@ jobs:
          for branch in ${{ inputs.branches }}; do
            echo "Syncing $branch..."
 
-           # Start from local branch
-           git checkout -B $branch origin/$branch
+           # Start from remote branch
+           git checkout -B $branch public/$branch
 
-           # Rebase changes from mirror
-           git pull public $branch --rebase
+           # Rebase changes from local repo 
+           git pull origin $branch --rebase
 
            # Push to repo
            git push public $branch
