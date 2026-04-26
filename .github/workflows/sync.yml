@@ -34,6 +34,24 @@ jobs:
          chmod 600 ~/.ssh/config
          ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-     - run: |
+     - name: do the actual push
+       shell: bash
+       env: 
+         SYNC_BRANCHES: main
+       run: |
          git remote add public git@github-mirror:go-emeland-io2/go-libraries.git
-         git push public main
+
+         for branch in ${{ inputs.branches }}; do
+           echo "Syncing $branch..."
+
+           # Start from local branch
+           git checkout -B $branch origin/$branch
+
+           # Rebase changes from mirror
+           git pull public $branch --rebase
+
+           # Push to repo
+           git push public $branch
+
+           echo "✓ $branch synced"
+         done
