@@ -41,7 +41,7 @@ jobs:
        run: |
          git remote add public git@github-mirror:go-emeland-io2/go-libraries.git
 
-         for branch in SYNC_BRANCHES; do
+         for branch in ${SYNC_BRANCHES}; do
            echo "Syncing $branch..."
 
            # Start from remote branch
